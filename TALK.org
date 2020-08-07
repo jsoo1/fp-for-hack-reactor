@@ -1,0 +1,43 @@
+* Me
+** Hack Reactor Remote 13 (early 2016)
+** Some computer science background but knew more about math and economics prior
+   I say this because background and motivation really help determine
+   what you will find interesting or useful.  I was really interested
+   in mathematics (and particularly finitist math) prior to hack
+   reactor, even.
+** Worked in three companies so far
+   - Verys: consulting for big companies (web apps in common tools)
+   - Panoramic: single product team (web app to manage VA claims, Elm and Haskell)
+   - Consumable: AdTech (backend in Rust)
+** Learned Clojure right after Hack Reactor on another alumni's recommendation
+** Started the [[https://www.meetup.com/orange-combinator][Orange Combinator]] meetup and learned some Haskell
+** Found my real passion for type theory and theorem provers
+* You
+** Do you like map/filter/reduce?
+** Have you ever used a typed language (like TypeScript)?
+** Are you interested in mathematics?
+* Minimal definition of functional programming
+** A language can be called functional if you can use functions as values:
+   - They can be returned from functions
+   - They can be used as arguments to functions
+   - They can be bound to names (assigned to variables)
+** That means almost all major languages these days are functional!
+   - Java
+   - JavaScript (as you know)
+   - Python
+   - C#
+   - C++
+   - C
+   - Smalltalk
+   - Go
+   - Rust
+   - LISPs
+   - Haskell
+   - Coq
+** This begs the question
+   If all these languages are functional, is functional programming
+   really that important or interesting?
+** Of course my answer is, yes, very!
+   Not all programming languages take functional programming to be
+   fundamental to their design.  As such, some benefits of functional
+   programming (I like to call if FP)

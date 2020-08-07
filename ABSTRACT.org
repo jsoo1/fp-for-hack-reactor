@@ -1,0 +1,16 @@
+* Abstract
+  Functional programming is slowly but surely becoming the norm in
+  industrial settings.  There are many advantages that make it a great
+  choice as a programming discipline for industry. Functional
+  programming is also a very deep and interesting field in its own
+  right. For the student that is just getting started learning about
+  computer science and in their career I hope to show:
+  1. A few of functional programming's practical benefits
+  2. How interesting some advanced and formal parts of functional
+     programming research are
+* After this talk, students should be able to:
+  1. Understand there are many kinds of functional programming
+  2. Understand a few benefits of untyped functional programming
+  3. Know a few benefits of typed functional programming
+  4. Know a few benefits of type systems and calculi
+  5. Know where to find out more if they are interested
