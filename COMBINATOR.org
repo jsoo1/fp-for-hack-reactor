@@ -1,0 +1,14 @@
+* Charles:  Equational reasoning
+  - Evan says cool things come out of it (time independence)
+  - Ernesto says compiler optimizations are good also
+* Evan and Ernesto: Reasoning about code
+* For dynamically typed environments
+** Still equational reasoning
+** Compositionality
+** Expressiveness
+** Modeling
+** Aesthetics
+** Interactivity
+* Annoyances about non-functional languages
+** Can't trust things to not do mutation
+* Motivated people

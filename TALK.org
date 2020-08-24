@@ -16,6 +16,10 @@
 ** Do you like map/filter/reduce?
 ** Have you ever used a typed language (like TypeScript)?
 ** Are you interested in mathematics?
+   Don't worry if not. Some parts of functional programming may not be
+   for you, but there is still much to gain by using it. Using
+   functional programming does not require mathematical knowledge
+   either.
 * Minimal definition of functional programming
 ** A language can be called functional if you can use functions as values:
    - They can be returned from functions
@@ -40,4 +44,306 @@
 ** Of course my answer is, yes, very!
    Not all programming languages take functional programming to be
    fundamental to their design.  As such, some benefits of functional
-   programming (I like to call if FP)
+   programming (I like to call if FP) are not available in all of
+   those languages.
+** David Hilbert posed the Entscheidungsproblem (Decision problem)
+   Does there exist a program to calculate a truth value for all
+   mathematical propositions?
+*** Systems invented to answer it spawned computation as we know it
+*** There are three most famous approaches
+   1. Turing Machines
+   2. Lambda Calculus (Church)
+   3. Recursive Functions (Kleene)
+** Lambda Calculus published in 1936 by Alonzo Church
+*** A very simple grammar consisting of only a few constructs:
+   - variables
+   - lambda abstraction
+   - lambda application
+*** It was proved equivalent to a turing machine by Kleene and Godel
+   You can program _only_ using functions!
+** The story of Lambda Calculus continues beyond the decision problem
+   Untyped Lambda Calculus as stated originally was proved to be
+   inconsistent as a logic.
+   - Simply typed lambda calculus (Church in 1940)
+   - System F (lambda calculus with polymorphism)
+   - Dependently typed lambda calculus
+   - Pi calculus
+   - System K and modal logics
+   - Many more
+** LISP - John McCarthy (1958)
+   Implementation of untyped lambda calculus
+*** Looks like this
+   #+BEGIN_SRC scheme
+   (define increment-all (xs)
+     (map (lambda (x) (+ x 1)) xs))
+   #+END_SRC
+*** Defining features
+   - prefix notation
+   - parenthesis
+   - homoiconicity (code has same tree structure as data structures)
+*** Major innovations
+   - Garbage collection
+   - Macros
+*** Many descendents today, including
+   - Racket
+   - Clojure
+   - Chez scheme
+   - Common Lisp
+** ML - Robin Milner and others (1973)
+   Implementation of a typed lambda calculus
+*** Looks like this
+   - SML (closer to original)
+   #+BEGIN_SRC sml
+   fun incrementAll (xs: int list) = map (fn x => x + 1) xs
+   (* Equivalent to *)
+   val incrementAll2 = map (fn x => x + 1)
+   #+END_SRC
+   - Haskell (modern descendent)
+   #+BEGIN_SRC haskell
+   incrementAll :: [Int] -> [Int]
+   incrementAll xs = fmap (+1) xs
+   -- equivalent to
+   incrementAll2 :: [Int] -> [Int]
+   incrementAll2 = fmap (+1)
+   #+END_SRC
+*** Defining features (more variance in this family than lisp)
+   - significant whitespace
+   - separate type signatures from term definitions
+*** Major innovations
+   - Type inference
+   - Polymorphism
+   - Theorem proving
+   - Abstract machines
+** To me, FP is about a fundamentally different model of computation
+   Taking Lambda Calculus as the fundamental computational model
+   (instead of the Turing Machine)
+* Additionally, there are many different flavors of FP
+  I already discussed the LISP and ML families, but there are further
+  distinctions based on further refinements to the lambda calculus.
+** Varieties of FP come from many things but two stick out:
+   - Type system
+   - Evaluation strategy (I won't cover this too much but you can look
+     up lazy and eager evaluation)
+** Today there are a few different levels of FP with common implementations
+   - Untyped Lambda Calculus (implementation in LISPS)
+   - Typed Lambda Calculus (ML families like OCaml)
+   - Typed Lambda Calculus without side effects (Primarily Haskell)
+   - Dependently typed Lambda Calculus (also in the ML family like
+     Agda, Idris, Coq) (without side effects, *and* strongly normalizing)
+** At each level of FP come extra powers.
+   This is slightly counterintuitive because at each level, something
+   is being constrained.
+*** From untyped to typed Lambda Calculus
+    The range of valid expressions is constrained.  This means that
+    expressions (at least those without side effects and divergence)
+    are always well typed.
+*** typed Lambda Calculus to typed Lambda Calculus without effects
+    Untracked side effects are removed. This means that expressions
+    with side effects are explicitly tracked. Furthermore, side
+    effects can be abstracted over and generalized.
+*** Typed Lambda Calculus without effects to dependent types
+    Lambda Calculus, all expressions must normalize (terminate). But
+    in this setting, types correspond to propositions and programs
+    correspond to proofs.
+** "Pure" Functional Programming
+   A slightly unfortunate common phrase you will hear when discussing
+   FP.  This means programming *only* with functions (no mutable state
+   or mutation).  To me, this means using the Lambda Calculus
+   exclusively in your program.
+
+   Programs written in typed Lambda Calculus without effects and in
+   dependently typed Lambda Calculus are by definition written
+   exclusively in Lambda Calculus.
+
+   However, it is very possible to write "purely" functional programs
+   in other varieties.
+* Why "Pure" Functional Programming
+  There are many niceties that come with using the Lambda Calculus
+  exclusively.
+
+  I asked attendees of the Orange Combinator meetup why
+  functional programming was good. The standout answer was a
+  consequence of pure functional programming: "referential
+  transparency".
+
+  First, an aside:
+** Grammar and semantics of the untyped Lambda Calculus
+   Don't worry too much about this if you are only interested in the
+   professional benefits of functional programming. I am saying this
+   just to make the next few points more clear.
+*** Grammar in rough Bachus-Nauer Form
+   #+BEGIN_EXAMPLE
+   Expression := Variable
+               | λ x. Expression (This is called lambda abstraction)
+               | Expression Expression (This is called lambda application)
+   #+END_EXAMPLE
+
+   Here is an example (The parenthesis are for grouping clarity)
+   #+BEGIN_EXAMPLE
+   (λ f. λ x. λ y. f y) (λ x. x)
+   #+END_EXAMPLE
+*** Reduction
+    1. Alpha-reduction: Names are meant to come from some infinite
+       set. Variables can be renamed as long as all occurrences names
+       are changed uniformly. Use this to avoid name collisions
+    2. Beta-reduction: Replace bound variables with arguments in the
+       body of a lambda abstraction.
+
+    Continuing the example from above
+    #+BEGIN_EXAMPLE
+    (λ f. λ x. λ y. f y) (λ x. x)
+
+    1. (λ f. λ x. λ y. f y) (λ a. a) - Alpha-reduction
+    2. λ x. λ y. (λ a. a) y          - Beta-reduction
+    3. λ x. λ y. y                   - Beta-reduction
+
+    => λ x. λ y. y
+    #+END_EXAMPLE
+*** Some notes
+    Clearly programming this way would be very hard, so modern
+    implementations add primitives and values like arrays, numbers,
+    strings, etc. Modern implementations also allow definitions of
+    named expressions.
+
+    At the end of the day, this is the general model of evaluation for
+    most functional programming (even in the variously typed
+    kinds). As you might imagine, there are many slight variations
+    even from reduction strategy from which whole languages have
+    sprung.
+** Referential Transparency
+   A working definition: An expression is referentially transparent if
+   it can be replaced by the result of evaluating the expression
+   without changing the program's behavior.
+
+   Another way to say this is that the result of evaluating an
+   expression depends only on the inputs to the expression.
+
+   This requires that expressions must have no side effects and always
+   return all the effects of the expression.
+
+   Here is an example of some code that is *not* referentially transparent:
+   #+BEGIN_SRC javascript
+     function insertFiveWRONG(x) {
+       // replacing sideEffect(x) with undefined would change the behavior
+       // of the program. Note that functions that return undefined or
+       // accept no parameters are often side effecting
+       x.splice(10, 1, 5)
+     }
+   #+END_SRC
+
+   We can fix ~insertFiveWRONG~
+   #+BEGIN_SRC javascript
+     // By making the expression refer only to inputs and returning a copy
+     // of the data.  The fixed version can be replaced by the result of
+     // evaluation.
+     function insertFiveFixed(x) {
+       return x.slice(0, 9).concat([5]).concat(x.slice(10))
+     }
+   #+END_SRC
+** Semantics of Lambda Calculus and Referential Transparency
+   Writing exclusively in the Lambda Calculus guarantees that all
+   expressions are referentially transparent.
+** Consequences related to referential transparency
+*** Understanding the behavior of programs
+    Understanding any piece of code is much easier when the behavior
+    of the program is only determined by the inputs and outputs.  Thus
+    to understand a program written in purely functional style is to
+    understand the given expression *and no more*.  The state of a
+    system will not effect the evaluation.
+*** Time independence
+    Referentially transparent expressions can be replaced with their
+    results safely without effecting the rest of the program. Thus
+    they can be evaluated *in any order*. In other words, purely
+    functional programs can be trivially evaluated in parallel/on
+    multiple cores.
+*** Algebraic substitution
+    Any referentially transparent expression can be replaced with what
+    it evaluates to.  Therefore if two expressions evaluate to the
+    same result, one can be replaced by the other.
+** Other niceties
+*** Simplicity
+    Because the Lambda Calculus is so small, most functional languages
+    have little built into the language itself.  A good example here
+    is loops. ~for~ and ~while~ are syntax that compiler and
+    interpreter writers have exclusive ownership over. However in
+    functional languages, such constructs can be built using simpler
+    pieces of the language.
+*** Compositionality and expressiveness
+    By definition, programs written in the functional programming
+    style consist of functions composed with one another.  This leads
+    to many nice ways of combining functions in an expressive manner.
+
+    Functional programs are often much more declarative and operate
+    over whole pieces rather than individual parts.
+
+    #+BEGIN_SRC haskell
+    f = foldr (+) 0 . filter (> 0)
+    --              ^ This dot is function composition
+    #+END_SRC
+
+    (as opposed to)
+    #+BEGIN_SRC javascript
+    function f (arr) {
+      let sum = 0;
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i] > 0) {
+          sum = sum + arr[i];
+        }
+      }
+      return sum
+    }
+    #+END_SRC
+* Room to grow
+  Functional programming is responsible for many of the biggest
+  innovations in language design.
+
+  - Garbage collection - First in LISP in 1958 not widely accepted
+    until the 1990s
+  - Software transactional memory - World class implementations in
+    Haskell and Clojure. Implementations in C# canceled because of
+    implementation difficulty
+  - Algebraic data types - Implemented from the start in the ML
+    family. Finally getting some acceptance in mainstream languages
+    like Python and C#.
+  - Linear types - Known for some time as a sound model for memory
+    management without garbage collection. Finally got implementations
+    in Rust and ATS.
+  - async/await, option chaining, result chaining - Implemented first
+    in Haskell and redone (with less generalization) in Swift,
+    Javascript, Rust, and more.
+** Plenty of active research in languages and tools based on FP
+   - Distributed systems
+   - Memory management
+   - Program synthesis
+   - Probabilistic programming
+   - Secure systems
+   - Applications in pure mathematics
+   - CAD modeling
+** Which leads me to my favorite thing about FP
+   The sky is the limit on what there is to learn and explore.
+   Particularly for those interested in mathematics, it is a very fun
+   area of research.
+
+   There is still a lot of engineering work to be done to make some of
+   the truly amazing things from the academic community real, too.
+* Concluding
+  If you are interested in programming languages, the algebraic side
+  of mathematics or logic I highly recommend looking into the
+  research and academic side of functional programming.
+
+  If you are not interested in those things, there is still quite a
+  lot of benefit to be gained by writing functional code.
+  Particularly in large codebases, the lack of mutable state and
+  reasoning capabilities of a functional style (no matter what
+  language you are using) really shine.
+** Freedoms
+*** Freedom from
+    - Global state
+    - Manual memory management
+    - High costs of making synchronous code concurrent
+*** Freedom to
+    - Apply and research very interesting topics in logic and
+      programming languages
+    - Use as much (or as little) abstraction as you are able
+** Caveats
+   Functional programming may not be for you. That is no problem.
