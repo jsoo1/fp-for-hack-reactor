@@ -344,6 +344,37 @@
 *** Freedom to
     - Apply and research very interesting topics in logic and
       programming languages
-    - Use as much (or as little) abstraction as you are able
+    - Use as much (or as little) abstraction as you desire
 ** Caveats
    Functional programming may not be for you. That is no problem.
+* Further resources for the curious
+  There are simply too many to list. Functional programming has arrived!
+** JavaScript
+   - Professor Frisby's Mostly Adequate Guide to Functional Programming
+     A good introduction if you know javascript
+     https://mostly-adequate.gitbooks.io/mostly-adequate-guide/content/
+** Scheme and Lisp
+   - Try Racket at https://www.racket-lang.org
+     They have friendly tutorials on the basics, web programming and
+     systems programming
+   - The "Little" series by Daniel Friedman and collaborators
+** Haskell
+   - Programming Haskell by Graham Hutton
+   - The Haskell School of Music by Paul Hudak and Donya Quick
+   - Type Classes
+     For the Haskell curious. Paid classes at https://typeclasses.com/
+** Communities
+   - #functional channel in the alumni slack
+   - functional programming slack (invite available at https://fpchat-invite.herokuapp.com/)
+   - Your local functional programming meetup
+** Blogs
+   So, so many haskell blogs. I cannot begin to list them without
+   forgetting the good ones.
+   - Gabriel Gonzalez http://www.haskellforall.com/
+   - Alexis Kind (aka Lexi Lambda) https://lexi-lambda.github.io/
+** Podcasts
+   Mostly now podfaded
+   - Functional Geekery
+   - Lambda Cast
+   - Type Theory Commute
+   - Type Theory Podcast
