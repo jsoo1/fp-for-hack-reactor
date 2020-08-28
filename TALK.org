@@ -23,7 +23,9 @@
     more out of functional programming if you do, though.
 
     If none of this seems useful or interesting to you, please don't
-    feel if you don't pursue it further.
+    feel compelled to pursue it further. There is already a lot to
+    learn.
+*** Think of this talk as me recruiting for the functional programming club.
 * Minimal definition of functional programming
 ** A language can be called functional if you can use functions as values.
    That is to say if:
@@ -69,7 +71,7 @@
    We must know, we will know.
    #+END_QUOTE
    He was sure that mathematics could be "solved", in some sense.  His
-   questions were also well known enough that many mathematicians
+   questions were so well known enough that many mathematicians
    undertook to solve them.
 *** Systems invented to answer it spawned computation as we know it
 *** There are three most famous approaches
@@ -93,7 +95,7 @@
   - Simply typed lambda calculus (Church in 1940)
   - System F (lambda calculus with polymorphism by Girard and
     Reynolds in 1972 and 74, respectively)
-  - Dependently typed lambda calculus (Haskell Curry, Howard, de Bruijn)
+  - Dependently typed lambda calculus (Curry, Howard, de Bruijn)
   - Pi calculus
   - System K and modal logics
   - Many more
@@ -123,7 +125,7 @@
    #+BEGIN_SRC sml
    fun incrementAll (xs: int list) = map (fn x => x + 1) xs
    (* Equivalent to *)
-   val incrementAll2 = map (fn x => x + 1)
+   fun incrementAll2 = map (fn x => x + 1)
    #+END_SRC
 
    - Haskell (modern descendent)
@@ -142,7 +144,7 @@
    - Polymorphism
    - Theorem proving
    - Abstract machines
-** FP distinction comes from the different underlying model of computation
+** FP's distinction comes from the different underlying model of computation
    Taking Lambda Calculus as the fundamental computational model
    (instead of the Turing Machine)
 * Additionally, there are many different flavors of FP
@@ -404,7 +406,7 @@
      https://plato.stanford.edu/entries/church-turing/
 ** JavaScript
    - Professor Frisby's Mostly Adequate Guide to Functional Programming
-     A good introduction if you know javascript
+     A good introduction if you know JavaScript
      https://mostly-adequate.gitbooks.io/mostly-adequate-guide/content/
 ** Scheme and Lisp
    - Try Racket at https://www.racket-lang.org
