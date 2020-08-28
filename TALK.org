@@ -4,11 +4,11 @@
    I say this because background and motivation really help determine
    what you will find interesting or useful.  I was really interested
    in mathematics (and particularly finitist math) prior to hack
-   reactor, even.
+   reactor.
 ** Worked in three companies so far
    - Verys: consulting for big companies (web apps in common tools)
    - Panoramic: single product team (web app to manage VA claims, Elm and Haskell)
-   - Consumable: AdTech (backend in Rust)
+   - Consumable: Ad exchange in Rust
 ** Learned Clojure right after Hack Reactor on another alumni's recommendation
 ** Started the [[https://www.meetup.com/orange-combinator][Orange Combinator]] meetup and learned some Haskell
 ** Found my real passion for type theory and theorem provers
@@ -16,18 +16,23 @@
 ** Do you like map/filter/reduce?
 ** Have you ever used a typed language (like TypeScript)?
 ** Are you interested in mathematics?
-   Don't worry if not. Some parts of functional programming may not be
-   for you, but there is still much to gain by using it. Using
-   functional programming does not require mathematical knowledge
-   either.
+*** Don't worry if not.
+    Some parts of functional programming may not be for you, but there
+    is still much to gain by using it. Using functional programming
+    does not require mathematical knowledge.  You will probably get
+    more out of functional programming if you do, though.
+
+    If none of this seems useful or interesting to you, please don't
+    feel if you don't pursue it further.
 * Minimal definition of functional programming
-** A language can be called functional if you can use functions as values:
+** A language can be called functional if you can use functions as values.
+   That is to say if:
    - They can be returned from functions
    - They can be used as arguments to functions
    - They can be bound to names (assigned to variables)
 ** That means almost all major languages these days are functional!
-   - Java
    - JavaScript (as you know)
+   - Java
    - Python
    - C#
    - C++
@@ -46,30 +51,52 @@
    fundamental to their design.  As such, some benefits of functional
    programming (I like to call if FP) are not available in all of
    those languages.
-** David Hilbert posed the Entscheidungsproblem (Decision problem)
+*** One primary argument I want to impart to you today.
+    Functional programming is *fundamentally different* from other
+    programming language models.
+* History
+  Functional programming is as old as programming as we know it today.
+  Computational models began to see very serious study in the 20th
+  century when some questions about the foundations of mathematics
+  were being raised.
+** 1928 - David Hilbert posed the Entscheidungsproblem (Decision problem)
    Does there exist a program to calculate a truth value for all
    mathematical propositions?
+
+   Hilbert's outlook on mathematics can almost entirely be summarized
+   by the words on his tombstone.
+   #+BEGIN_QUOTE
+   We must know, we will know.
+   #+END_QUOTE
+   He was sure that mathematics could be "solved", in some sense.  His
+   questions were also well known enough that many mathematicians
+   undertook to solve them.
 *** Systems invented to answer it spawned computation as we know it
 *** There are three most famous approaches
    1. Turing Machines
    2. Lambda Calculus (Church)
    3. Recursive Functions (Kleene)
 ** Lambda Calculus published in 1936 by Alonzo Church
-*** A very simple grammar consisting of only a few constructs:
-   - variables
-   - lambda abstraction
-   - lambda application
-*** It was proved equivalent to a turing machine by Kleene and Godel
-   You can program _only_ using functions!
-** The story of Lambda Calculus continues beyond the decision problem
-   Untyped Lambda Calculus as stated originally was proved to be
-   inconsistent as a logic.
-   - Simply typed lambda calculus (Church in 1940)
-   - System F (lambda calculus with polymorphism)
-   - Dependently typed lambda calculus
-   - Pi calculus
-   - System K and modal logics
-   - Many more
+   I want to emphasize that turing machines and lambda calculus
+   developed in tandem around the same time.  That is to say that
+   Lambda Calculus
+*** A very simple grammar consisting of only a few constructs.
+*** Turing proved the Lambda Calculus and Turing Machines equivalent
+*** Church-Turing thesis
+   Church and Turing separately proved the Decision problem
+   impossible.
+
+   Implication: you can program _only_ using functions!
+* The story of Lambda Calculus continues beyond the Decision problem
+  Untyped Lambda Calculus as stated originally was proved to be
+  inconsistent as a logic.
+  - Simply typed lambda calculus (Church in 1940)
+  - System F (lambda calculus with polymorphism by Girard and
+    Reynolds in 1972 and 74, respectively)
+  - Dependently typed lambda calculus (Haskell Curry, Howard, de Bruijn)
+  - Pi calculus
+  - System K and modal logics
+  - Many more
 ** LISP - John McCarthy (1958)
    Implementation of untyped lambda calculus
 *** Looks like this
@@ -98,6 +125,7 @@
    (* Equivalent to *)
    val incrementAll2 = map (fn x => x + 1)
    #+END_SRC
+
    - Haskell (modern descendent)
    #+BEGIN_SRC haskell
    incrementAll :: [Int] -> [Int]
@@ -114,7 +142,7 @@
    - Polymorphism
    - Theorem proving
    - Abstract machines
-** To me, FP is about a fundamentally different model of computation
+** FP distinction comes from the different underlying model of computation
    Taking Lambda Calculus as the fundamental computational model
    (instead of the Turing Machine)
 * Additionally, there are many different flavors of FP
@@ -223,7 +251,7 @@
 
    Here is an example of some code that is *not* referentially transparent:
    #+BEGIN_SRC javascript
-     function insertFiveWRONG(x) {
+     function insertFiveNotReferentiallyTransparent(x) {
        // replacing sideEffect(x) with undefined would change the behavior
        // of the program. Note that functions that return undefined or
        // accept no parameters are often side effecting
@@ -231,7 +259,8 @@
      }
    #+END_SRC
 
-   We can fix ~insertFiveWRONG~
+   We can make ~insertFiveNotReferentiallyTransparent~ referentially
+   transparent
    #+BEGIN_SRC javascript
      // By making the expression refer only to inputs and returning a copy
      // of the data.  The fixed version can be replaced by the result of
@@ -328,8 +357,8 @@
    the truly amazing things from the academic community real, too.
 * Concluding
   If you are interested in programming languages, the algebraic side
-  of mathematics or logic I highly recommend looking into the
-  research and academic side of functional programming.
+  of mathematics, math foundations or logic I highly recommend looking
+  into the research and academic side of functional programming.
 
   If you are not interested in those things, there is still quite a
   lot of benefit to be gained by writing functional code.
@@ -346,9 +375,33 @@
       programming languages
     - Use as much (or as little) abstraction as you desire
 ** Caveats
-   Functional programming may not be for you. That is no problem.
+*** Functional programming may not be for you. That is no problem.
+*** Performance
+    Functional programs must be run on turing machines.  This leads to
+    a lot of memory allocation and does not always cater to the
+    functional style.
+
+    However! Garbage collection technologies and linear types have
+    improved so much and limit the technical downsides (along with
+    much faster hardware).  Furthermore, new hardware is adding more
+    cores faster than it is adding more clock cycles.  The parallelism
+    inherent to a functional style means that functional programs
+    benefit from hardware advances much more readily than imperative
+    ones.
+
+    Furthermore, most issues in software projects today stem from
+    their resistance to change. Programming with the Lambda Calculus
+    as a basis makes change possible.
+** Functional programming is becoming mainstream
+   The professional and productivity benefits are becoming clear.  If
+   you take some time to study it, I believe you will be more
+   attractive to employers in the future (on top of making you a
+   better programmer).
 * Further resources for the curious
   There are simply too many to list. Functional programming has arrived!
+** History of Entscheidungsproblem
+   - The Stanford Encyclopedia of Philosophy has an excellent history
+     https://plato.stanford.edu/entries/church-turing/
 ** JavaScript
    - Professor Frisby's Mostly Adequate Guide to Functional Programming
      A good introduction if you know javascript
